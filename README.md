@@ -47,5 +47,11 @@ The application is divided into the following packages:
 ![Database](database.png) 
 ![Database2](database2.png)
 
+## Conclusions
+ - Developed skills in Java Swing for GUI development.
+ - Gained experience in integrating PostgresSQL with Java applications.
+ - Learned to implement business logic and validation in a layered architecture.
+
+Thank you! ✨
 
 
