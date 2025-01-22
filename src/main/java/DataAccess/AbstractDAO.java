@@ -91,7 +91,7 @@ public class AbstractDAO<T> {
         stringBuilder.append(" * ");
         stringBuilder.append(" FROM ");
         stringBuilder.append(type.getSimpleName());
-        stringBuilder.append(" ORDER BY ID ");
+        //stringBuilder.append(" ORDER BY ID ");
         return stringBuilder.toString();
     }
 
@@ -128,10 +128,18 @@ public class AbstractDAO<T> {
      * @return A list of objects created from the ResultSet.
      */
     private List<T> createObjects(ResultSet resultSet){
-        List<T> list = new ArrayList<>();
+        List<T> list = new ArrayList<T>();
+        Constructor[] ctors = type.getDeclaredConstructors();
+        Constructor ctor = null;
+        for (int i = 0; i < ctors.length; i++) {
+            ctor = ctors[i];
+            if (ctor.getGenericParameterTypes().length == 0)
+                break;
+        }
         try {
             while (resultSet.next()) {
-                T instance = type.getDeclaredConstructor().newInstance();
+                ctor.setAccessible(true);
+                T instance = (T)ctor.newInstance();
                 for (Field field : type.getDeclaredFields()) {
                     String fieldName = field.getName();
                     Object value = resultSet.getObject(fieldName);
@@ -141,11 +149,23 @@ public class AbstractDAO<T> {
                 }
                 list.add(instance);
             }
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
-                 NoSuchMethodException | SQLException | IntrospectionException e) {
-            LOGGER.log(Level.WARNING, type.getName() + "DAO:createObjects " + e.getMessage());
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IntrospectionException e) {
+            e.printStackTrace();
         }
         return list;
+
     }
 
     /**
@@ -194,7 +214,7 @@ public class AbstractDAO<T> {
      * @param t The object to be inserted into the database.
      * @return The ID of the inserted object, or -1 if insertion fails.
      */
-    public int insert(T t){
+    public void insert(T t){
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -215,7 +235,6 @@ public class AbstractDAO<T> {
             ConnectionFactory.close(preparedStatement);
             ConnectionFactory.close(connection);
         }
-        return ID;
     }
 
     /**

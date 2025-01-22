@@ -82,6 +82,6 @@ public class ProductController implements ActionListener {
         Integer ID = Integer.parseInt(idText);
         productBLL.deleteProduct(ID);
         productFrame.initializeTable();
-        JOptionPane.showMessageDialog(null, "Product [id=" + ID + " was successfully deleted!","SUCCESS", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Product [id=" + ID + "] was successfully deleted!","SUCCESS", JOptionPane.INFORMATION_MESSAGE);
     }
 }

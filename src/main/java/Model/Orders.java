@@ -8,7 +8,7 @@ public class Orders {
     /**
      * The ID of the order.
      */
-    private int ID;
+    //private int ID;
 
     /**
      * The ID of the client placing the order.
@@ -24,6 +24,8 @@ public class Orders {
      * The quantity of the product in the order.
      */
     private int quantity;
+
+    private float totalPrice;
 
     /**
      * The total price of the order.
@@ -43,12 +45,12 @@ public class Orders {
      * @param productID  The ID of the product in the order.
      * @param quantity   The quantity of the product in the order.
      */
-    public Orders(int ID, int clientID, int productID, int quantity) {
-        this.ID = ID;
-        this.clientID = clientID;
-        this.productID = productID;
-        this.quantity = quantity;
-    }
+    //public Orders(int ID, int clientID, int productID, int quantity) {
+       // this.ID = ID;
+        //this.clientID = clientID;
+        //this.productID = productID;
+       // this.quantity = quantity;
+   // }
 
     /**
      * Constructs a new Orders object with the specified attributes.
@@ -57,10 +59,11 @@ public class Orders {
      * @param productID  The ID of the product in the order.
      * @param quantity   The quantity of the product in the order.
      */
-    public Orders(int clientID, int productID, int quantity) {
+    public Orders(int clientID, int productID, int quantity, float totalPrice) {
         this.clientID = clientID;
         this.productID = productID;
         this.quantity = quantity;
+        this.totalPrice = totalPrice;
     }
 
     /**
@@ -68,18 +71,18 @@ public class Orders {
      *
      * @return The ID of the order.
      */
-    public int getID() {
-        return ID;
-    }
+    //public int getID() {
+       // return ID;
+   // }
 
     /**
      * Sets the ID of the order.
      *
      * @param ID The ID of the order.
      */
-    public void setID(int ID) {
-        this.ID = ID;
-    }
+    //public void setID(int ID) {
+      //  this.ID = ID;
+    //}
 
     /**
      * Gets the ID of the client placing the order.
@@ -135,6 +138,13 @@ public class Orders {
         this.quantity = quantity;
     }
 
+    public float getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(float totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 
     /**
      * Returns a string representation of the order.
@@ -143,6 +153,6 @@ public class Orders {
      */
     @Override
     public String toString() {
-        return "Order [id=" + ID + ", clientID=" + clientID + ", productID=" + productID + ", quantity=" + quantity + "]";
+        return "Order [clientID=" + clientID + ", productID=" + productID + ", quantity=" + quantity + ", totalPrice=" + totalPrice + "]";
     }
 }

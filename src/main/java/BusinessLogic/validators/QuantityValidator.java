@@ -14,7 +14,7 @@ public class QuantityValidator implements Validator<Product>{
     @Override
     public void validate(Product product) {
 
-        if(product.getStock() <= 0){
+        if(product.getStock() < 0){
             JOptionPane.showMessageDialog(null, "The product is out of stock!","ERROR", JOptionPane.ERROR_MESSAGE);
             throw new IllegalArgumentException("The product is out of stock!");
         }

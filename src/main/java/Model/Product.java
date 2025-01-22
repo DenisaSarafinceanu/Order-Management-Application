@@ -20,7 +20,7 @@ public class Product {
     /**
      * The price of the product.
      */
-    private double price;
+    private float price;
 
     /**
      * The stock quantity of the product.
@@ -40,7 +40,7 @@ public class Product {
      * @param price The price of the product.
      * @param stock The stock quantity of the product.
      */
-    public Product(int ID, String name, double price, int stock) {
+    public Product(int ID, String name, float price, int stock) {
         this.ID = ID;
         this.name = name;
         this.price = price;
@@ -83,7 +83,7 @@ public class Product {
      * Gets the price of the product.
      * @return The price of the product.
      */
-    public double getPrice() {
+    public float getPrice() {
         return price;
     }
 
@@ -91,7 +91,7 @@ public class Product {
      * Sets the price of the product.
      * @param price The price of the product.
      */
-    public void setPrice(double price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 

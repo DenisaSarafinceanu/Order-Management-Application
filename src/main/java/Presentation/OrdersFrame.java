@@ -60,17 +60,11 @@ public class OrdersFrame extends JFrame {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
-        //this.clientPane.setLayout(null);
-        //this.productPane.setLayout(null);
-        //prepareOrderFrame();
         this.clientPane.setLayout(new BorderLayout());
         this.productPane.setLayout(new BorderLayout());
         this.orderPane.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         initializeTables();
-        //initializeClientTable();
-        //initializeProductTable();
-        //initializeOrderTable();
         prepareOrderPanel();
         this.clientPane.add(clientTable.getTableHeader(), BorderLayout.NORTH);
         this.clientPane.add(new JScrollPane(clientTable), BorderLayout.CENTER);
@@ -85,49 +79,19 @@ public class OrdersFrame extends JFrame {
         this.setContentPane(this.ordersPanel);
         this.orderPane.add(new JScrollPane(orderTable), BorderLayout.CENTER); // Add this line
     }
-    public void initializeClientTable(){
-        ClientBLL clientBLL = new ClientBLL();
-        List<Client> allClients = clientBLL.findAllClients();
-        Reflection reflection = new Reflection();
-        clientTable = reflection.retrieveProperties(allClients);
 
-        prepareTableClient(clientTable);
-    }
-
-    public void initializeProductTable(){
-        ProductBLL productBLL = new ProductBLL();
-        List<Product> allProducts = productBLL.findAllProducts();
-        Reflection reflection1 = new Reflection();
-        productTable = reflection1.retrieveProperties(allProducts);
-        prepareTableProduct(productTable);
-    }
-
-    public void initializeOrderTable(){
-        OrdersBLL ordersBLL = new OrdersBLL();
-        List<Orders> allOrders = ordersBLL.findAllOrders();
-        Reflection reflection2 = new Reflection();
-        orderTable = new JTable();
-        orderTable = reflection2.retrieveProperties(allOrders);
-        prepareTableOrders(orderTable);
-    }
     public void initializeTables(){
         ClientBLL clientBLL = new ClientBLL();
         List<Client> allClients = clientBLL.findAllClients();
         Reflection reflection = new Reflection();
-        //clientTable = new JTable();
         clientTable = reflection.retrieveProperties(allClients);
 
         ProductBLL productBLL = new ProductBLL();
         List<Product> allProducts = productBLL.findAllProducts();
-        //productTable = new JTable();
-        //Reflection reflection1 = new Reflection();
         productTable = reflection.retrieveProperties(allProducts);
-
 
         OrdersBLL ordersBLL = new OrdersBLL();
         List<Orders> allOrders = ordersBLL.findAllOrders();
-        Reflection reflection2 = new Reflection();
-       // orderTable = new JTable();
         orderTable = reflection.retrieveProperties(allOrders);
 
         prepareTableClient(clientTable);
@@ -147,19 +111,6 @@ public class OrdersFrame extends JFrame {
         table1.getColumnModel().getColumn(2).setPreferredWidth(150);
         table1.getColumnModel().getColumn(3).setPreferredWidth(150);
         table1.setRowHeight(20);
-        /*
-        this.clientPane.add(Box.createVerticalStrut(20));
-        this.clientPane.add(pane);
-        this.clientTable = table1;
-        this.clientPane.add(Box.createVerticalStrut(20));
-        //this.clientTable.setLayout(new GridLayout(1, 1));
-
-       // this.clientPane.add(clientTable);
-
-        this.clientPane.revalidate();
-        this.clientPane.repaint();
-
-        this.ordersPanel.add(this.clientPane);*/
     }
 
     public void prepareTableProduct(JTable table1){
@@ -185,8 +136,8 @@ public class OrdersFrame extends JFrame {
         header.setBackground(Color.pink);
         JScrollPane pane = new JScrollPane(table1);
         table1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        table1.getColumnModel().getColumn(0).setPreferredWidth(50);
-        table1.getColumnModel().getColumn(1).setPreferredWidth(100);
+        table1.getColumnModel().getColumn(0).setPreferredWidth(80);
+        table1.getColumnModel().getColumn(1).setPreferredWidth(80);
         table1.getColumnModel().getColumn(2).setPreferredWidth(150);
         table1.getColumnModel().getColumn(3).setPreferredWidth(150);
 
@@ -203,15 +154,14 @@ public class OrdersFrame extends JFrame {
 
     public void prepareOrderPanel(){
         clientIDLabel = new JLabel("Client ID:");
-        clientIDTextField = new JTextField(5); // Change the size of the text field to 5
+        clientIDTextField = new JTextField(5);
         productIDLabel = new JLabel("Product ID:");
-        productIDTextField = new JTextField(5); // Change the size of the text field to 5
+        productIDTextField = new JTextField(5);
         quantityLabel = new JLabel("Quantity:");
-        quantityTextField = new JTextField(5); // Change the size of the text field to 5
+        quantityTextField = new JTextField(5);
         orderButton = new JButton("Place Order");
         this.orderButton.addActionListener(this.controller);
 
-        // Add the components to a GridBagLayout to improve the layout
         GridBagLayout layout = new GridBagLayout();
         GridBagConstraints constraints = new GridBagConstraints();
         orderPane.setLayout(layout);
@@ -265,14 +215,11 @@ public class OrdersFrame extends JFrame {
         constraints.fill = GridBagConstraints.BOTH;
         layout.setConstraints(new JScrollPane(orderTable), constraints);
         orderPane.add(new JScrollPane(orderTable));
-
-        // Adjust the weighty constraint to push the button to the bottom of the container
         constraints.weighty = 1.0;
         constraints.anchor = GridBagConstraints.PAGE_END;
         layout.setConstraints(orderButton, constraints);
         orderPane.add(orderButton);
 
-        // Reset the weighty constraint to its default value
         constraints.weighty = 0.0;
     }
 

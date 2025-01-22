@@ -14,7 +14,7 @@ import java.util.logging.Level;
 public class ConnectionFactory {
     private static final Logger LOGGER = Logger.getLogger(ConnectionFactory.class.getName());
     private static final String DRIVER = "org.postgresql.Driver";
-    private static final String DBURL = "jdbc:postgresql://localhost:5432/PT_Database";
+    private static final String DBURL = "jdbc:postgresql://localhost:5432/Order_PT";
     private static final String USER = "postgres";
     private static final String PASS = "denisa15";
 

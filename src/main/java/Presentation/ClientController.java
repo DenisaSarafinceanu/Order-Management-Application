@@ -97,6 +97,6 @@ public class ClientController implements ActionListener {
         Integer ID = Integer.parseInt(idText);
         clientBLL.deleteClient(ID);
         clientFrame.initializaTable();
-        JOptionPane.showMessageDialog(null, "Client [id=" + ID + " was successfully deleted!","SUCCESS", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Client [id=" + ID + "] was successfully deleted!","SUCCESS", JOptionPane.INFORMATION_MESSAGE);
     }
 }

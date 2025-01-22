@@ -9,6 +9,7 @@
  */
 package Presentation;
 
+import BusinessLogic.BillBLL;
 import BusinessLogic.ClientBLL;
 import BusinessLogic.OrdersBLL;
 import BusinessLogic.ProductBLL;
@@ -19,6 +20,15 @@ import Model.Product;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Random;
+
 /**
  * The OrderController class implements the {@link ActionListener} interface to handle user
  * interactions related to placing orders in the graphical user interface (GUI).
@@ -35,6 +45,7 @@ public class OrderController implements ActionListener {
     private OrdersBLL ordersBLL = new OrdersBLL();
     private ClientBLL clientBLL = new ClientBLL();
     private ProductBLL productBLL = new ProductBLL();
+    private BillBLL billBLL = new BillBLL();
 
     /**
      * Constructs a new OrderController with the specified OrdersFrame.
@@ -63,6 +74,31 @@ public class OrderController implements ActionListener {
      * calculating the total price, updating stock levels, and inserting the order into the database.
      * Displays appropriate success or error messages.
      */
+    private void printInFile(Client client, Product product, Orders orders, int quantity){
+        Random random = new Random();
+        File fileOutput = new File("Log.txt");
+        FileWriter write = null;
+        try{
+            write = new FileWriter(fileOutput);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+        PrintWriter printWriter = new PrintWriter(write);
+        LocalDate date = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        printWriter.println("BILL ID: " + random.nextInt(1000));
+        printWriter.println("DATE: " + date.format(formatter));
+        printWriter.println("CLIENT NAME: " + client.getName());
+        printWriter.println("CLIENT ADDRESS: " + client.getAddress());
+        printWriter.println("CLIENT EMAIL: " + client.getEmail());
+        printWriter.println("PRODUCT: " + product.getName());
+        printWriter.println("PRICE: " + quantity +"x" + product.getPrice());
+        printWriter.println("--------------------------------");
+        printWriter.println("TOTAL PRICE: " + quantity * product.getPrice());
+        printWriter.close();
+    }
+
     private void placeOrder(){
             String clientIdText = ordersFrame.getClientIDTextField().getText();
             Integer clientID = Integer.parseInt(clientIdText);
@@ -73,20 +109,35 @@ public class OrderController implements ActionListener {
             try {
                 Client client = clientBLL.findClientById(clientID);
                 Product product = productBLL.findProductByID(productId);
-                //double totalPrice = quantity * product.getPrice();
-                Orders orders = new Orders(clientID, productId, quantity);
-                int ID = ordersBLL.insertOrder(orders);
-                orders.setID(ID);
-                if(product.getStock() - quantity == 0){
-                    productBLL.deleteProduct(productId);
-                    JOptionPane.showMessageDialog(null, orders.toString() + " was successfully added!", "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
+                float totalPrice = quantity * product.getPrice();
+                Orders orders = new Orders(clientID, productId, quantity, totalPrice);
+                ordersBLL.insertOrder(orders);
+
+                if(product.getStock() == quantity){
+                    product.setStock(0);
+                    productBLL.updateProduct(product);
+                    try{
+                        billBLL.generateBill(client, product, orders);
+                        printInFile(client, product, orders, quantity);
+                    } catch (NumberFormatException e){
+                        e.printStackTrace();
+                    }
                     ordersFrame.initializeTables();
+                    JOptionPane.showMessageDialog(null, orders.toString() + " was successfully added!", "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
+
                 }
                 else{
                     product.setStock(product.getStock() - quantity);
-                    productBLL.updateProduct(product);
-                    JOptionPane.showMessageDialog(null, orders.toString() + " was successfully added!", "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
+                    productBLL.updateProduct(product);try{
+                        billBLL.generateBill(client, product, orders);
+                        printInFile(client, product, orders, quantity);
+                    } catch (NumberFormatException e){
+                        e.printStackTrace();
+                    }
+
                     ordersFrame.initializeTables();
+                    JOptionPane.showMessageDialog(null, orders.toString() + " was successfully added!", "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
+
                 }
 
 
@@ -94,7 +145,5 @@ public class OrderController implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Limited stock!" , "ERROR", JOptionPane.ERROR_MESSAGE);
                 e.printStackTrace();
             }
-
-
     }
 }

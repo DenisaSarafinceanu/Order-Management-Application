@@ -40,11 +40,11 @@ public class OrdersBLL {
      * @param order The Orders object to insert.
      * @return The ID of the newly inserted order.
      */
-    public int insertOrder(Orders order){
+    public void insertOrder(Orders order){
         for(Validator<Orders> validator : validators){
             validator.validate(order);
         }
 
-        return ordersDAO.insert(order);
+        ordersDAO.insert(order);
     }
 }

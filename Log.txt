@@ -1,0 +1,9 @@
+BILL ID: 796
+DATE: 23-05-2024
+CLIENT NAME: test
+CLIENT ADDRESS: Str Obs
+CLIENT EMAIL: test@yahoo.ro
+PRODUCT: test
+PRICE: 15x59.9
+--------------------------------
+TOTAL PRICE: 898.5
