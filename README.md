@@ -3,7 +3,7 @@
 ## Objective
 The goal of this project is to design and implement an application that allows employees to manage client orders for a warehouse. This includes adding, updating, and deleting clients and products, creating orders, and maintaining data consistency in a PostgresSQL database.
 
-##Technologies Used
+## Technologies Used
  - Language: **Java**
  - Database: **PostgresSQL**
  - GUI Framework: **Java Swing**
@@ -29,7 +29,16 @@ The application is divided into the following packages:
 ## Division into classes
 ![Class diagram](class.png)
 
-##Implementation
+## Implementation
 ![Start page](start.png)
+![Add client](add.png)
+![Update client](update.png)
+![Delete client](delete.png)
+![Set order](order.png)
+![Insert order](inser_order.png)
+![Order result](order_result.png)
+![Bill](bill.png)
+![Database](database.png) (database2.png)
+
 
 
