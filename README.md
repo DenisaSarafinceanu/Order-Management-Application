@@ -39,7 +39,7 @@ The application is divided into the following packages:
 ![Delete client](delete.png)
 ### Set order
 ![Set order](order.png)
-![Insert order](inser_order.png)
+![Insert order](insert_order.png)
 ![Order result](order_result.png)
 ### Bill
 ![Bill](bill.png)
