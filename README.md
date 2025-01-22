@@ -31,14 +31,21 @@ The application is divided into the following packages:
 
 ## Implementation
 ![Start page](start.png)
+### Add client
 ![Add client](add.png)
+### Update client
 ![Update client](update.png)
+### Delete client
 ![Delete client](delete.png)
+### Set order
 ![Set order](order.png)
 ![Insert order](inser_order.png)
 ![Order result](order_result.png)
+### Bill
 ![Bill](bill.png)
-![Database](database.png) (database2.png)
+### Database
+![Database](database.png) 
+![Database2](database2.png)
 
 
 
