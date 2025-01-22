@@ -1,8 +1,12 @@
 # Order-Management-Application
 
 ## Objective
-The goal of this preoject is to design and implement an application that allows employees to manage client orders for a warehouse. This includes adding, updating, and deleting clients and products, creating orders, and maintaining data consistency in a PostgresSQL database.
+The goal of this project is to design and implement an application that allows employees to manage client orders for a warehouse. This includes adding, updating, and deleting clients and products, creating orders, and maintaining data consistency in a PostgresSQL database.
 
+##Technologies Used
+ - Language: **Java**
+ - Database: **PostgresSQL**
+ - GUI Framework: **Java Swing**
 ## Features
  - **Client Management**: Add, update, and delete clients with proper validation.
  - **Product Management**: Manage product details like name, price, and stock.
@@ -21,3 +25,11 @@ The application is divided into the following packages:
 
 ## Use case
 ![Use case diagram](us.png)
+
+## Division into classes
+![Class diagram](class.png)
+
+##Implementation
+![Start page](start.png)
+
+
